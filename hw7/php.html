@@ -1,0 +1,85 @@
+<?php
+$mysqli_connection = new MySQLi('localhost', 'root', 'password', 'currentwork');
+if ($mysqli_connection->connect_error) {
+   echo "Not connected, error: " . $mysqli_connection->connect_error;
+}
+else {
+   //echo "Connected.";
+}
+$stocks = array();
+$query = "select ticker, name, price, diff, percent_diff, volume from stockexample";
+
+if ($result = $mysqli_connection->query($query)){
+
+	while ($row=$result->fetch_row()){
+
+		array_push($stocks, $row);
+	}
+	$result->close();
+}
+
+$sort = $_GET["sort"];
+switch ($sort) {
+	case 'ticker':
+		$index = 0;
+		break;
+	case 'name':
+		$index = 1;
+		break;
+	case 'price':
+		$index = 2;
+		break;
+	case 'diff':
+		$index = 3;
+		break;    
+	case 'percent_diff':
+		$index = 4;
+		break;
+	case 'volume':
+		$index = 5;
+		break;    
+	default:
+		break;
+}
+if($sort){
+	usort($stocks, function($a,$b) use ($index){
+		return strnatcmp($a[$index], $b[$index]);
+	});  
+}
+if($index == 2 || $index == 5){
+	$stocks = array_reverse($stocks, false);
+}
+
+$mysqli_connection->close();
+
+?>
+
+<html>
+<head>
+	<title>NYSE Active 100</title>
+</head>
+<body>
+	<table border="1">
+		<tr>
+			<td><a href="?sort=ticker">Ticker</a></td>
+			<td><a href="?sort=name">Name</a></td>
+			<td><a href="?sort=price">Price</a></td>
+			<td><a href="?sort=diff">Difference</a></td>
+			<td><a href="?sort=percent_diff">Percent Difference</a></td>
+			<td><a href="?sort=volume">Volume</a></td>
+		</tr>
+	<?php foreach($stocks as $stock): ?>
+		<tr>
+			<td><?php echo $stock[0]; ?></td>
+			<td><?php echo $stock[1]; ?></td>
+			<td><?php echo $stock[2]; ?></td>
+			<td><?php echo $stock[3]; ?></td>
+			<td><?php echo $stock[4]; ?></td>
+			<td><?php echo $stock[5]; ?></td>
+		</tr>
+	<?php endforeach; ?>
+
+	</table>
+
+</body>
+</html>

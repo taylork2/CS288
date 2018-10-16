@@ -1,0 +1,8 @@
+-rw-r--r-- 1 CS288 DS882 7950 Dec 9 05:57 automode.o
+drwxr-xr-x 1 CS288 DS882 0 Jul 22 2013 awk
+-rwxr-xr-x 1 CS288 DS882 8227 Sep 21 2012 backup.sh*
+-rwxr-xr-x 1 CS288 DS882 14877 Mar 22 2013 bigram.exe*
+-rw-r--r-- 1 CS288 DS882 6555 Dec 9 05:57 binmode.o
+-rwxr-xr-x 1 CS288 DS882 19485 Mar 22 2013 code.exe*
+lrwxrwxrwx 1 CS288 DS882 14 Dec 12 17:45 cpp
+-rw-r--r-- 1 CS288 DS882 7508 Dec 9 05:57 crt0.o
